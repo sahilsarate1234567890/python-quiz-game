@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Python Quiz Game</title>
+</head>
+<body>
+    <h2>Welcome to Sahil's Python Quiz Game!</h2>
+    <form method="POST" action="/submit">
+        {% for q in questions %}
+            <p><strong>{{ q.question }}</strong></p>
+            {% for opt in q.options %}
+                <label><input type="radio" name="q{{ loop.index0 }}" value="{{ opt }}"> {{ opt }}</label><br>
+            {% endfor %}
+        {% endfor %}
+        <br><button type="submit">Submit Quiz</button>
+    </form>
+</body>
+</html>
