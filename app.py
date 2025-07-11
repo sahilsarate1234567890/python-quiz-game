@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('index.html', questions=questions)
+    return render_template("index.html", questions=questions)
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -15,7 +15,7 @@ def submit():
         user_answer = request.form.get(f'q{i}')
         if user_answer == q['answer']:
             score += 1
-    return render_template('result.html', score=score, total=len(questions))
+    return render_template("result.html", score=score, total=len(questions))
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
