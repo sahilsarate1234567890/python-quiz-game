@@ -1,18 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Python Quiz Game</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            background-color: #f0f4f7;
+        }
+        h2 {
+            color: #2c3e50;
+        }
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+        .options label {
+            display: block;
+            margin: 5px 0;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #3498db;
+        }
+    </style>
 </head>
 <body>
     <h2>Welcome to Sahil's Python Quiz Game!</h2>
     <form method="POST" action="/submit">
         {% for q in questions %}
+        <div class="question">
             <p><strong>{{ q.question }}</strong></p>
-            {% for opt in q.options %}
-                <label><input type="radio" name="q{{ loop.index0 }}" value="{{ opt }}"> {{ opt }}</label><br>
-            {% endfor %}
+            <div class="options">
+                {% for opt in q.options %}
+                    <label>
+                        <input type="radio" name="q{{ loop.parent.index0 }}" value="{{ opt }}" required> {{ opt }}
+                    </label>
+                {% endfor %}
+            </div>
+        </div>
         {% endfor %}
-        <br><button type="submit">Submit Quiz</button>
+        <br>
+        <button type="submit">Submit Quiz</button>
     </form>
 </body>
 </html>

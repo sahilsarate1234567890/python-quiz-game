@@ -1,10 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Result</title>
+    <meta charset="UTF-8">
+    <title>Quiz Result</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f9fafc;
+            text-align: center;
+            padding: 50px;
+        }
+        h2 {
+            font-size: 32px;
+            color: #2ecc71;
+            animation: bounce 0.6s ease;
+        }
+        p {
+            font-size: 18px;
+            color: #34495e;
+        }
+        .badge {
+            margin-top: 20px;
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
+            background-color: #3498db;
+            padding: 10px 20px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        @keyframes bounce {
+            0%   { transform: scale(1); }
+            50%  { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+    </style>
 </head>
 <body>
     <h2>Your Score: {{ score }}/{{ total }}</h2>
-    <p>Thanks for playing!</p>
+    <p>Thanks for playing, {{ 'Quiz Master 🧠' if score == total else 'Python Explorer 🐍' }}!</p>
+
+    <div class="badge">
+        {% if score == total %}
+            🎉 Perfect Score!
+        {% elif score >= total * 0.7 %}
+            👏 Great Job!
+        {% elif score >= total * 0.4 %}
+            👍 Keep Practicing!
+        {% else %}
+            💡 Don’t Give Up!
+        {% endif %}
+    </div>
+    {% for f in feedback %}
+    <div class="question-feedback">
+        <p><strong>{{ f.question }}</strong></p>
+        <p>Your Answer: {{ f.user_answer }} {% if f.is_correct %} ✅ {% else %} ❌ {% endif %}</p>
+        {% if not f.is_correct %}
+            <p>Correct Answer: {{ f.correct_answer }}</p>
+        {% endif %}
+    </div>
+{% endfor %}
+<br>
+<a href="/"><button>Play Again</button></a>
+<p>{{ message }}</p>
 </body>
 </html>
